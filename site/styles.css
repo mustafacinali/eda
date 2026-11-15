@@ -1334,3 +1334,11 @@ h1, h2, h3, p { margin: 0; }
 .biletlerim-gecmis { margin-top: 48px; }
 .biletlerim-gecmis summary { cursor: pointer; color: var(--muted); font-weight: 600; }
 .biletlerim-gecmis .biletler { opacity: 0.6; margin-top: 16px; }
+
+/* ---------- Hero: boşluk yok, içerik üst barın hemen altında ---------- */
+.hero { align-items: flex-start; min-height: 0; }
+.hero-inner { padding-top: calc(var(--header-h) + 28px); padding-bottom: clamp(56px, 10vh, 112px); }
+
+/* Büyük logo görünürken üst bardaki logo gizli (aynı isim iki kez görünmesin) */
+.header-inner--ikon .brand { transition: opacity 0.25s ease, transform 0.25s ease; }
+.site-header[data-logo-gizli="true"] .header-inner--ikon .brand { opacity: 0; transform: translateY(-6px); pointer-events: none; }

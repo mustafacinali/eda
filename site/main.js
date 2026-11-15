@@ -52,6 +52,23 @@ const CONFIG = {
     a.dataset.girisli = String(uyeVar);
   });
 
+  /* ---------- Büyük logo ekrandayken üst bardaki logoyu gizle ----------
+     Bölümler kart gibi üst üste bindiği için büyük logo sayfadan çıkmaz, sıradaki kartın altında kalır.
+     Bu yüzden logo; üst barın altına kaydığında ya da sıradaki kart üstünü örttüğünde "görünmüyor" sayılır. */
+  const buyukLogo = document.querySelector(".hero-logo");
+  const sonrakiKart = document.querySelector(".hero ~ [data-kart], #etkinlikler");
+  if (header && buyukLogo) {
+    const logoKontrol = () => {
+      const l = buyukLogo.getBoundingClientRect();
+      const ustSinir = header.getBoundingClientRect().bottom;
+      const ortuldu = sonrakiKart ? sonrakiKart.getBoundingClientRect().top < l.bottom - l.height / 2 : false;
+      header.dataset.logoGizli = String(l.bottom > ustSinir && !ortuldu);
+    };
+    window.addEventListener("scroll", logoKontrol, { passive: true });
+    window.addEventListener("resize", logoKontrol);
+    logoKontrol();
+  }
+
   /* ---------- Hero tanıtım videosu ---------- */
   const video = document.querySelector("[data-hero-video]");
   if (video && !window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
